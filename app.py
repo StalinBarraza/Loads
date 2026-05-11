@@ -44,7 +44,6 @@ st.divider()
 
 # --- Sección 1: Disponibilidad de equipos ---
 st.subheader('Uso de Disponibilidad por Equipo')
-st.caption('Valores normalizados entre 0.0 y 1.0')
 
 cols = st.columns(5)
 equipos = [
