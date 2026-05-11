@@ -51,7 +51,7 @@ st.divider()
 # ================================================================
 if modo == '📋 Registro manual':
 
-    st.subheader('Uso de Disponibilidad por Equipo')
+    st.subheader('% de utilización por Equipo')
     st.caption('Valores normalizados entre 0.0 y 1.0')
 
     equipos = [
@@ -75,11 +75,11 @@ if modo == '📋 Registro manual':
     st.subheader('Parámetros Operacionales de Camiones')
     col1, col2, col3 = st.columns(3)
     with col1:
-        Tks_Availability_OB = st.number_input('Disponibilidad de camiones (OB)', min_value=0.0, max_value=1.0, value=0.0, step=0.01, format='%.2f')
+        Tks_Availability_OB = st.number_input('Disponibilidad de camiones', min_value=0.0, max_value=1.0, value=0.0, step=0.01, format='%.2f')
     with col2:
-        Tks_Utilization_OB = st.number_input('Tiempo utilizado de camiones', min_value=0.0, max_value=1.0, value=0.0, step=0.01, format='%.2f')
+        Tks_Utilization_OB = st.number_input('Utilización de camiones', min_value=0.0, max_value=1.0, value=0.0, step=0.01, format='%.2f')
     with col3:
-        Cycle = st.number_input('Tiempo de ciclo OB (min)', min_value=20.0, max_value=42.0, value=20.0, step=0.1, format='%.1f')
+        Cycle = st.number_input('Tiempo de ciclo (min)', min_value=20.0, max_value=42.0, value=20.0, step=0.1, format='%.1f')
 
     st.divider()
     st.subheader('Turno')
