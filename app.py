@@ -36,54 +36,90 @@ modelo, variables, min_max_scaler = pickle.load(open(filename, 'rb'))
 
 import streamlit as st
 
-st.title('Predicción de cargas - Complex')
+st.set_page_config(page_title='Predicción de Cargas', page_icon='⛏️', layout='wide')
 
-SH6231 = st.slider('UsodeDisp_6231', min_value=0.0, max_value=1.0, value=0.0, step=0.01)
-SH6232 = st.slider('UsodeDisp_6232', min_value=0.0, max_value=1.0, value=0.0, step=0.01)
-SH6233 = st.slider('UsodeDisp_6233', min_value=0.0, max_value=1.0, value=0.0, step=0.01)
-SH6234 = st.slider('UsodeDisp_6234', min_value=0.0, max_value=1.0, value=0.0, step=0.01)
-SH6235 = st.slider('UsodeDisp_6235', min_value=0.0, max_value=1.0, value=0.0, step=0.01)
-SH6236 = st.slider('UsodeDisp_6236', min_value=0.0, max_value=1.0, value=0.0, step=0.01)
-SH6237 = st.slider('UsodeDisp_6237', min_value=0.0, max_value=1.0, value=0.0, step=0.01)
-SH6238 = st.slider('UsodeDisp_6238', min_value=0.0, max_value=1.0, value=0.0, step=0.01)
-SH6239 = st.slider('UsodeDisp_6239', min_value=0.0, max_value=1.0, value=0.0, step=0.01)
-SH6241 = st.slider('UsodeDisp_6241', min_value=0.0, max_value=1.0, value=0.0, step=0.01)
-SH6242 = st.slider('UsodeDisp_6242', min_value=0.0, max_value=1.0, value=0.0, step=0.01)
-SH6243 = st.slider('UsodeDisp_6243', min_value=0.0, max_value=1.0, value=0.0, step=0.01)
-SH6244 = st.slider('UsodeDisp_6244', min_value=0.0, max_value=1.0, value=0.0, step=0.01)
-SH6245 = st.slider('UsodeDisp_6245', min_value=0.0, max_value=1.0, value=0.0, step=0.01)
-SH6246 = st.slider('UsodeDisp_6246', min_value=0.0, max_value=1.0, value=0.0, step=0.01)
-SH6247 = st.slider('UsodeDisp_6247', min_value=0.0, max_value=1.0, value=0.0, step=0.01)
-SH6248 = st.slider('UsodeDisp_6248', min_value=0.0, max_value=1.0, value=0.0, step=0.01)
-SH6249 = st.slider('UsodeDisp_6249', min_value=0.0, max_value=1.0, value=0.0, step=0.01)
-SH6250 = st.slider('UsodeDisp_6250', min_value=0.0, max_value=1.0, value=0.0, step=0.01)
-SH6260 = st.slider('UsodeDisp_6260', min_value=0.0, max_value=1.0, value=0.0, step=0.01)
-SH6261 = st.slider('UsodeDisp_6261', min_value=0.0, max_value=1.0, value=0.0, step=0.01)
-SH6262 = st.slider('UsodeDisp_6262', min_value=0.0, max_value=1.0, value=0.0, step=0.01)
-SH6263 = st.slider('UsodeDisp_6263', min_value=0.0, max_value=1.0, value=0.0, step=0.01)
-SH6264 = st.slider('UsodeDisp_6264', min_value=0.0, max_value=1.0, value=0.0, step=0.01)
-SH6268 = st.slider('UsodeDisp_6268', min_value=0.0, max_value=1.0, value=0.0, step=0.01)
-SH6269 = st.slider('UsodeDisp_6269', min_value=0.0, max_value=1.0, value=0.0, step=0.01)
-SH6449 = st.slider('UsodeDisp_6449', min_value=0.0, max_value=1.0, value=0.0, step=0.01)
-SH6455 = st.slider('UsodeDisp_6455', min_value=0.0, max_value=1.0, value=0.0, step=0.01)
-SH6457 = st.slider('UsodeDisp_6457', min_value=0.0, max_value=1.0, value=0.0, step=0.01)
-Tks_Availability_OB = st.slider('Tks Availability OB', min_value=0.0, max_value=1.0, value=0.0, step=0.01)
-Tks_Utilization_OB = st.slider('Tks Utilised Time', min_value=0.0, max_value=1.0, value=0.0, step=0.01)
-Cycle = st.slider('OB Cycle time (Min)', min_value=20.0, max_value=42.0, value=20.0, step=0.1)
-Shift = st.selectbox('turno', ['D', 'N'])
+st.title('⛏️ Predicción de Cargas — Complex')
+st.markdown('Ajusta los parámetros operacionales para obtener la predicción del modelo de ensamble.')
+st.divider()
 
+# --- Sección 1: Disponibilidad de equipos ---
+st.subheader('Uso de Disponibilidad por Equipo')
+st.caption('Valores normalizados entre 0.0 y 1.0')
 
-#Dataframe
+cols = st.columns(5)
+equipos = [
+    '6231','6232','6233','6234','6235',
+    '6236','6237','6238','6239','6241',
+    '6242','6243','6244','6245','6246',
+    '6247','6248','6249','6250','6260',
+    '6261','6262','6263','6264','6268',
+    '6269','6449','6455','6457'
+]
+valores = {}
+for i, eq in enumerate(equipos):
+    with cols[i % 5]:
+        valores[eq] = st.number_input(
+            f'Equipo {eq}',
+            min_value=0.0, max_value=1.0,
+            value=0.0, step=0.01,
+            format='%.2f',
+            key=f'eq_{eq}'
+        )
+
+st.divider()
+
+# --- Sección 2: Parámetros de camiones ---
+st.subheader('Parámetros Operacionales de Camiones')
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    Tks_Availability_OB = st.number_input(
+        'Disponibilidad de camiones (OB)',
+        min_value=0.0, max_value=1.0,
+        value=0.0, step=0.01, format='%.2f'
+    )
+with col2:
+    Tks_Utilization_OB = st.number_input(
+        'Tiempo utilizado de camiones',
+        min_value=0.0, max_value=1.0,
+        value=0.0, step=0.01, format='%.2f'
+    )
+with col3:
+    Cycle = st.number_input(
+        'Tiempo de ciclo OB (min)',
+        min_value=20.0, max_value=42.0,
+        value=20.0, step=0.1, format='%.1f'
+    )
+
+st.divider()
+
+# --- Sección 3: Turno ---
+st.subheader('Turno')
+Shift = st.radio('Selecciona el turno', ['D', 'N'], horizontal=True,
+                 format_func=lambda x: '☀️ Diurno' if x == 'D' else '🌙 Nocturno')
+
+st.divider()
+
+# --- DataFrame ---
 datos = [[
-    SH6231, SH6232, SH6233, SH6234, SH6235, SH6236, SH6237, SH6238, SH6239,
-    SH6241, SH6242, SH6243, SH6244, SH6245, SH6246, SH6247, SH6248, SH6249,
-    SH6250, SH6260, SH6261, SH6262, SH6263, SH6264, SH6268, SH6269,
-    SH6449, SH6455, SH6457, Tks_Availability_OB, Tks_Utilization_OB,
-    Cycle, Shift
+    valores['6231'], valores['6232'], valores['6233'], valores['6234'], valores['6235'],
+    valores['6236'], valores['6237'], valores['6238'], valores['6239'], valores['6241'],
+    valores['6242'], valores['6243'], valores['6244'], valores['6245'], valores['6246'],
+    valores['6247'], valores['6248'], valores['6249'], valores['6250'], valores['6260'],
+    valores['6261'], valores['6262'], valores['6263'], valores['6264'], valores['6268'],
+    valores['6269'], valores['6449'], valores['6455'], valores['6457'],
+    Tks_Availability_OB, Tks_Utilization_OB, Cycle, Shift
 ]]
 
-data = pd.DataFrame(datos, columns=['UsodeDisp_6231','UsodeDisp_6232','UsodeDisp_6233','UsodeDisp_6234','UsodeDisp_6235','UsodeDisp_6236','UsodeDisp_6237','UsodeDisp_6238','UsodeDisp_6239','UsodeDisp_6241','UsodeDisp_6242','UsodeDisp_6243','UsodeDisp_6244','UsodeDisp_6245','UsodeDisp_6246','UsodeDisp_6247','UsodeDisp_6248','UsodeDisp_6249','UsodeDisp_6250','UsodeDisp_6260','UsodeDisp_6261','UsodeDisp_6262','UsodeDisp_6263','UsodeDisp_6264','UsodeDisp_6268','UsodeDisp_6269','UsodeDisp_6449','UsodeDisp_6455','UsodeDisp_6457','Tks Availability OB','Tks Utilised Time','OB Cycle time (Min)','turno']) #Dataframe con los mismos nombres de variables
-
+data = pd.DataFrame(datos, columns=[
+    'UsodeDisp_6231','UsodeDisp_6232','UsodeDisp_6233','UsodeDisp_6234','UsodeDisp_6235',
+    'UsodeDisp_6236','UsodeDisp_6237','UsodeDisp_6238','UsodeDisp_6239','UsodeDisp_6241',
+    'UsodeDisp_6242','UsodeDisp_6243','UsodeDisp_6244','UsodeDisp_6245','UsodeDisp_6246',
+    'UsodeDisp_6247','UsodeDisp_6248','UsodeDisp_6249','UsodeDisp_6250','UsodeDisp_6260',
+    'UsodeDisp_6261','UsodeDisp_6262','UsodeDisp_6263','UsodeDisp_6264','UsodeDisp_6268',
+    'UsodeDisp_6269','UsodeDisp_6449','UsodeDisp_6455','UsodeDisp_6457',
+    'Tks Availability OB','Tks Utilised Time','OB Cycle time (Min)','turno'
+])
 #Se realiza la preparación de datos
 data_preparada=data.copy()
 
@@ -102,15 +138,11 @@ data_preparada.head()
 
 """##**PREDICCIONES**"""
 
-#Hacemos la predicción con el Tree
 Y_pred = modelo.predict(data_preparada)
-print(Y_pred)
 
-data['Prediccion']=Y_pred
-data.head()
-
-data
-
-# Recordar medida de error del modelo
-
-st.warning("El modelo tiene un error del 1.5%")
+st.subheader('Resultado de la Predicción')
+col_res1, col_res2 = st.columns([1, 2])
+with col_res1:
+    st.metric(label='Cargas estimadas', value=f'{int(round(Y_pred[0]))} cargas')
+with col_res2:
+    st.info('ℹ️ El modelo tiene un error aproximado del 1.5%')
