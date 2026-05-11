@@ -70,8 +70,7 @@ SH6457 = st.slider('UsodeDisp_6457', min_value=0.0, max_value=1.0, value=0.0, st
 Tks_Availability_OB = st.slider('Tks Availability OB', min_value=0.0, max_value=1.0, value=0.0, step=0.01)
 Tks_Utilization_OB = st.slider('Tks Utilised Time', min_value=0.0, max_value=1.0, value=0.0, step=0.01)
 Cycle = st.slider('OB Cycle time (Min)', min_value=20.0, max_value=42.0, value=20.0, step=0.1)
-
-SHIFT = st.selectbox('turno', ['D', 'N'])
+Shift = st.selectbox('turno', ['D', 'N'])
 
 
 #Dataframe
@@ -80,7 +79,7 @@ datos = [[
     SH6241, SH6242, SH6243, SH6244, SH6245, SH6246, SH6247, SH6248, SH6249,
     SH6250, SH6260, SH6261, SH6262, SH6263, SH6264, SH6268, SH6269,
     SH6449, SH6455, SH6457, Tks_Availability_OB, Tks_Utilization_OB,
-    Cycle, SHIFT
+    Cycle, Shift
 ]]
 
 data = pd.DataFrame(datos, columns=['UsodeDisp_6231','UsodeDisp_6232','UsodeDisp_6233','UsodeDisp_6234','UsodeDisp_6235','UsodeDisp_6236','UsodeDisp_6237','UsodeDisp_6238','UsodeDisp_6239','UsodeDisp_6241','UsodeDisp_6242','UsodeDisp_6243','UsodeDisp_6244','UsodeDisp_6245','UsodeDisp_6246','UsodeDisp_6247','UsodeDisp_6248','UsodeDisp_6249','UsodeDisp_6250','UsodeDisp_6260','UsodeDisp_6261','UsodeDisp_6262','UsodeDisp_6263','UsodeDisp_6264','UsodeDisp_6268','UsodeDisp_6269','UsodeDisp_6449','UsodeDisp_6455','UsodeDisp_6457','Tks Availability OB','Tks Utilised Time','OB Cycle time (Min)']) #Dataframe con los mismos nombres de variables
